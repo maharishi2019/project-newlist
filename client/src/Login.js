@@ -8,13 +8,15 @@ import {
     Switch,
     Route,
     Link,
-    Redirect
+    Redirect,
+    useHistory,
+    useLocation
 } from "react-router-dom";
 
 import Home from "./Home";
 
 class GoogleLogin extends Component {
-    state = { loggedIn: false }
+
     onSubmit = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth()
@@ -39,16 +41,8 @@ class GoogleLogin extends Component {
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
                 // ...
+                alert(errorMessage);
             });
-        <Switch>
-            <Redirect exact from="/login" to="/" />
-            <Route path="/login">
-                <Login />
-            </Route>
-            <Route path="/">
-                <Home />
-            </Route>
-        </Switch>
     }
     render() {
         return (
@@ -86,6 +80,7 @@ class TraditionalLogin extends Component {
             .then((user) => {
                 // Signed in 
                 // ...
+                return <Redirect to="/"></Redirect>
             })
             .catch((error) => {
                 var errorCode = error.code;

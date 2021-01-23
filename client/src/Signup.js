@@ -8,7 +8,9 @@ import {
     Switch,
     Route,
     Link,
-    Redirect
+    Redirect,
+    useHistory,
+    useLocation
 } from "react-router-dom";
 
 import Home from "./Home";
@@ -16,10 +18,11 @@ import Home from "./Home";
 class TraditionalSignup extends Component {
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '' };
+        this.state = { email: '', password: '', confirmpassword: '' };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -30,25 +33,28 @@ class TraditionalSignup extends Component {
     handlePasswordChange(event) {
         this.setState({ password: event.target.value });
     }
+
+    handleConfirmPasswordChange(event) {
+        this.setState({ confirmpassword: event.target.value });
+    }
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.email);
         event.preventDefault();
 
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then((user) => {
-                // Signed in 
-                // ...
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ..
-            });
-        firebase.auth().currentUser.sendEmailVerification()
-            .then(() => {
-                // Email verification sent!
-                // ...
-            });
+        if (this.state.password === this.state.confirmpassword) {
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then((user) => {
+                    // Signed in 
+                    // ...
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage);
+                    // ..
+                });
+        } else {
+            alert("Confirm password doesn't match password");
+        }
     }
 
     render() {
@@ -62,6 +68,10 @@ class TraditionalSignup extends Component {
                     <Form.Group id="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" value={this.state.password} onChange={this.handlePasswordChange} required></Form.Control>
+                    </Form.Group>
+                    <Form.Group id="confirmpassword">
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control type="password" value={this.state.confirmpassword} onChange={this.handleConfirmPasswordChange} required></Form.Control>
                     </Form.Group>
                     <Button type="submit">Signup</Button>
                 </Form>
