@@ -28,7 +28,7 @@ export default class Home extends Component {
     render() {
         var user = firebase.auth().currentUser;
         return (
-            <div>
+            <div class="home-body">
                 <h1>Home</h1>
                 <div>
                     {

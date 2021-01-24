@@ -35,8 +35,8 @@ class GoogleLogin extends Component {
                 var user = result.user;
                 console.log(user);
 
+                //Redirecting
                 this.props.handleSuccessfulAuth();
-                // ...
             }).catch((error) => {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -45,7 +45,6 @@ class GoogleLogin extends Component {
                 var email = error.email;
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
-                // ...
                 alert(errorMessage);
             });
     }
@@ -79,13 +78,10 @@ class TraditionalLogin extends Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.email);
         event.preventDefault();
 
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
             .then((user) => {
-                // Signed in 
-                // ...
                 this.props.handleSuccessfulAuth();
             })
             .catch((error) => {
@@ -121,9 +117,7 @@ export default class Login extends Component {
     }
 
     handleSuccessfulAuth = () => {
-        console.log("doing this");
         this.props.history.push("/");
-        console.log("hopefully should have redirected");
     }
 
     render() {

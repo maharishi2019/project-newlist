@@ -42,23 +42,18 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <ul>
-                    <li>
-                        <LinkContainer to="/">
-                            <Nav.Link>Home</Nav.Link>
-                        </LinkContainer>
-                    </li>
-                    <li>
-                        <LinkContainer to="/login">
-                            <Nav.Link>Login</Nav.Link>
-                        </LinkContainer>
-                    </li>
-                    <li>
-                        <LinkContainer to="/signup">
-                            <Nav.Link>Signup</Nav.Link>
-                        </LinkContainer>
-                    </li>
-                </ul>
+                <div>
+                    <Navbar collapseOnSelect expand="lg" class=".navbar-custom" variant="light" sticky="top" >
+                        <Navbar.Brand href="/">NewList</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="mr-auto">
+                                <Nav.Link href="/login">Login</Nav.Link>
+                                <Nav.Link href="/signup">Signup</Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                </div>
                 <Switch>
                     <Route exact path="/" exact component={Home} />
                     <Route exact path="/login" exact component={Login} />

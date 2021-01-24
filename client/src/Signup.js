@@ -45,6 +45,7 @@ class TraditionalSignup extends Component {
                 .then((user) => {
                     // Signed in 
                     // ...
+                    //Redirecting
                     this.props.handleSuccessfulAuth();
                 })
                 .catch((error) => {
