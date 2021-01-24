@@ -45,6 +45,7 @@ class TraditionalSignup extends Component {
                 .then((user) => {
                     // Signed in 
                     // ...
+                    this.props.handleSuccessfulAuth();
                 })
                 .catch((error) => {
                     var errorCode = error.code;
@@ -79,8 +80,20 @@ class TraditionalSignup extends Component {
         );
     };
 }
-export default function Signup() {
-    return (
-        <TraditionalSignup />
-    );
+export default class Signup extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+    }
+
+    handleSuccessfulAuth = () => {
+        this.props.history.push("/");
+    }
+
+    render() {
+        return (
+            <TraditionalSignup handleSuccessfulAuth={this.handleSuccessfulAuth} />
+        );
+    };
 }

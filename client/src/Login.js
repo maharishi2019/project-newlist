@@ -16,6 +16,9 @@ import {
 import Home from "./Home";
 
 class GoogleLogin extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     onSubmit = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
@@ -31,6 +34,8 @@ class GoogleLogin extends Component {
                 // The signed-in user info.
                 var user = result.user;
                 console.log(user);
+
+                this.props.handleSuccessfulAuth();
                 // ...
             }).catch((error) => {
                 // Handle Errors here.
@@ -72,6 +77,7 @@ class TraditionalLogin extends Component {
     handlePasswordChange(event) {
         this.setState({ password: event.target.value });
     }
+
     handleSubmit(event) {
         alert('A name was submitted: ' + this.state.email);
         event.preventDefault();
@@ -80,7 +86,7 @@ class TraditionalLogin extends Component {
             .then((user) => {
                 // Signed in 
                 // ...
-                return <Redirect to="/"></Redirect>
+                this.props.handleSuccessfulAuth();
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -107,11 +113,25 @@ class TraditionalLogin extends Component {
     };
 }
 
-export default function Login() {
-    return (
-        <div>
-            <GoogleLogin />
-            <TraditionalLogin />
-        </div>
-    );
+export default class Login extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+    }
+
+    handleSuccessfulAuth = () => {
+        console.log("doing this");
+        this.props.history.push("/");
+        console.log("hopefully should have redirected");
+    }
+
+    render() {
+        return (
+            <div>
+                <GoogleLogin handleSuccessfulAuth={this.handleSuccessfulAuth} />
+                <TraditionalLogin handleSuccessfulAuth={this.handleSuccessfulAuth} />
+            </div>
+        );
+    };
 }

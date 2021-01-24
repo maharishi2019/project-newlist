@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 //import of firebase (database)
 import { FirebaseDatabaseProvider } from "@react-firebase/database";
@@ -9,7 +9,8 @@ import {
     NavLink,
     Switch,
     Route,
-    Link
+    Link,
+    useHistory
 } from "react-router-dom";
 
 //import of react bootstrap functionalities
@@ -34,9 +35,12 @@ import Home from "./Home";
 import Login from "./Login";
 import Signup from "./Signup";
 
-export default function App() {
-    return (
-        <FirebaseDatabaseProvider>
+class App extends Component {
+    constructor() {
+        super();
+    }
+    render() {
+        return (
             <Router>
                 <ul>
                     <li>
@@ -56,17 +60,13 @@ export default function App() {
                     </li>
                 </ul>
                 <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route exact path="/login">
-                        <Login />
-                    </Route>
-                    <Route exact path="/signup">
-                        <Signup />
-                    </Route>
+                    <Route exact path="/" exact component={Home} />
+                    <Route exact path="/login" exact component={Login} />
+                    <Route exact path="/signup" exact component={Signup} />
                 </Switch>
             </Router >
-        </FirebaseDatabaseProvider>
-    );
+        );
+    };
 }
+
+export default App; 
