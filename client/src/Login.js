@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./Home";
+import NavBar from "./NavBar";
 
 class GoogleLogin extends Component {
     constructor(props) {
@@ -123,6 +124,7 @@ export default class Login extends Component {
     render() {
         return (
             <div>
+                <NavBar />
                 <GoogleLogin handleSuccessfulAuth={this.handleSuccessfulAuth} />
                 <TraditionalLogin handleSuccessfulAuth={this.handleSuccessfulAuth} />
             </div>

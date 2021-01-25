@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./Home";
+import NavBar from "./NavBar";
 
 class TraditionalSignup extends Component {
     constructor(props) {
@@ -62,6 +63,7 @@ class TraditionalSignup extends Component {
     render() {
         return (
             <div>
+                <NavBar />
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
@@ -84,8 +86,6 @@ class TraditionalSignup extends Component {
 export default class Signup extends Component {
     constructor(props) {
         super(props);
-
-        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     }
 
     handleSuccessfulAuth = () => {
